@@ -3,21 +3,23 @@ const accounts = {};
 module.exports = {
   getBalance: (id) => accounts[id] ?? null,
   deposit: (id, amount) => {
-    accounts[id] = (accounts[id] ?? 0) + amount;
-    return { destination: { id, balance: accounts[id] } };
+    const cents = Math.round(amount * 100);
+    accounts[id] = (accounts[id] ?? 0) + cents;
+    return { destination: { id, balance: accounts[id] / 100 } };
   },
   withdraw: (id, amount) => {
-    if (!accounts[id] || accounts[id] < amount) return null;
-    accounts[id] -= amount;
-    return { origin: { id, balance: accounts[id] } };
+    const cents = Math.round(amount * 100);
+    if (!accounts[id] || accounts[id] < cents) return null;
+    accounts[id] -= cents;
+    return { origin: { id, balance: accounts[id] / 100 } };
   },
   transfer: (origin, destination, amount) => {
-    if (!accounts[origin] || accounts[origin] < amount) return null;
-    accounts[origin] -= amount;
-    accounts[destination] = (accounts[destination] ?? 0) + amount;
-    return {
-      origin: { id: origin, balance: accounts[origin] },
-      destination: { id: destination, balance: accounts[destination] }
+    const cents = Math.round(amount * 100);
+    if (!accounts[origin] || accounts[origin] < cents) return null;
+    accounts[origin] -= cents;
+    accounts[destination] = (accounts[destination] ?? 0) + cents;
+    return { origin: { id: origin, balance: accounts[origin] / 100 },
+    destination: { id: destination, balance: accounts[destination] / 100 }
     };
   },
   reset: () => Object.keys(accounts).forEach(k => delete accounts[k])

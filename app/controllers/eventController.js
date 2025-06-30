@@ -11,7 +11,7 @@ exports.getBalance = (req, res) => {
   const { account_id } = req.query;
   const balance = service.getBalance(account_id);
   if (balance === null) return res.status(404).send(0);
-  return res.status(200).send(balance.toString());
+  return res.status(200).send((balance / 100).toFixed(2));
 };
 
 exports.reset = (req, res) => {

@@ -2,6 +2,8 @@
 
 A simple RESTful API for managing accounts and transactions (deposit, withdraw, transfer) with in-memory storage.
 
+> **Note**: Monetary values (`amount`) can be sent as decimal numbers (e.g., `1.50`). They are automatically converted to integer cents internally for processing.
+
 ## Endpoints
 
 - `POST /event`  

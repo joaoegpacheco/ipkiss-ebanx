@@ -2,7 +2,10 @@
 
 A simple RESTful API for managing accounts and transactions (deposit, withdraw, transfer) with in-memory storage.
 
-> **Note**: Monetary values (`amount`) can be sent as decimal numbers (e.g., `1.50`). They are automatically converted to integer cents internally for processing.
+> **Note**: Monetary values (`amount`) can be sent as decimal numbers (e.g., `1.50`).  
+> Internally, all values are converted to integer cents (e.g., `1.50` → `150`) to ensure precision and avoid rounding errors during calculations.  
+> This prevents issues like missing or incorrect cents when summing or subtracting balances.
+
 
 ## Endpoints
 
